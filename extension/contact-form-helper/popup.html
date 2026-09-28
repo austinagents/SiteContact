@@ -6,6 +6,10 @@
   <label>Sender name<input id="senderName" autocomplete="name" placeholder="Your name"></label>
   <label>Contact email<input id="contactEmail" type="email"></label>
   <label>Message<textarea id="message" rows="9"></textarea></label>
+  <details><summary>Queue connection</summary>
+    <label>Operator URL<input id="queueBaseUrl" type="url" placeholder="https://site-contact.vercel.app"></label>
+    <label>Extension API token<input id="extensionApiToken" type="password" autocomplete="off"></label>
+  </details>
   <label class="toggle"><input id="autoFill" type="checkbox"><span>Auto-fill matching forms when pages load</span></label>
   <label class="toggle"><input id="autoAdvance" type="checkbox"><span>After I submit, open the next queue record</span></label>
   <button id="fill">Fill current page</button>
