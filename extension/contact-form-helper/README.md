@@ -21,3 +21,5 @@ Press **Command+Shift+.** at any time to move to the next eligible pending queue
 For a hosted operator, open **Queue connection** in the popup and enter the Vercel URL. Localhost remains the default for local use.
 
 Always review the populated fields before manually submitting.
+
+Press **Shift+M** outside a text field to submit the single contact form that the helper successfully filled with name, email, and message. The shortcut does nothing when the form is ambiguous or no unique submit control can be identified.

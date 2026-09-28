@@ -65,6 +65,8 @@
 
     if (filled.length) {
       globalThis.__contactFormHelperFilled = true;
+      const forms = new Set([...used].map(element => element.closest("form")).filter(Boolean));
+      globalThis.__contactFormHelperForm = filled.length === 3 && forms.size === 1 ? [...forms][0] : null;
       [...used][0].scrollIntoView({ behavior: "smooth", block: "center" });
     }
     return { filled };
@@ -86,5 +88,22 @@
       if (!settings.autoAdvance) return;
       chrome.runtime.sendMessage({ type: "contact-form-submitted", url: location.href });
     });
+  }, true);
+
+  document.addEventListener("keydown", event => {
+    if (event.repeat || event.key.toLowerCase() !== "m" || !event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
+    const active = document.activeElement;
+    if (active?.matches?.("input, textarea, select, [contenteditable=true]")) return;
+    const form = globalThis.__contactFormHelperForm;
+    if (!form || !form.isConnected) return;
+    const buttons = [...form.querySelectorAll('button, input[type="submit"], input[type="button"]')].filter(element => {
+      const type = (element.getAttribute("type") || (element.tagName === "BUTTON" ? "submit" : "button")).toLowerCase();
+      return type === "submit" && visible(element);
+    });
+    const preferred = buttons.find(element => /submit|send|contact|message|inquir|enquir/i.test(element.textContent || element.value || ""));
+    const submitter = preferred || (buttons.length === 1 ? buttons[0] : null);
+    if (!submitter) return;
+    event.preventDefault();
+    form.requestSubmit(submitter);
   }, true);
 })();
