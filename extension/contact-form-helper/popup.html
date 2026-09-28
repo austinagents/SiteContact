@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="popup.css"><title>Contact Form Helper</title></head>
+<body>
+  <header><div class="mark">CF</div><div><h1>Contact Form Helper</h1><p>Fill only. Never submits.</p></div></header>
+  <label>Sender name<input id="senderName" autocomplete="name" placeholder="Your name"></label>
+  <label>Contact email<input id="contactEmail" type="email"></label>
+  <label>Message<textarea id="message" rows="9"></textarea></label>
+  <label class="toggle"><input id="autoFill" type="checkbox"><span>Auto-fill matching forms when pages load</span></label>
+  <label class="toggle"><input id="autoAdvance" type="checkbox"><span>After I submit, open the next queue record</span></label>
+  <button id="fill">Fill current page</button>
+  <button id="next" class="secondary">Open next queue site</button>
+  <div id="result" role="status"></div>
+  <footer>Fill: <kbd>⌘</kbd><kbd>⇧</kbd><kbd>Y</kbd> · Next: <kbd>⌘</kbd><kbd>⇧</kbd><kbd>.</kbd></footer>
+  <script src="popup.js"></script>
+</body>
+</html>
