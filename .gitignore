@@ -5,6 +5,7 @@
 __pycache__/
 *.py[cod]
 node_modules/
+.next/
 .vercel/
 
 # Queue data and private operator state must never enter Git.
@@ -17,4 +18,3 @@ node_modules/
 *.db-wal
 *.db-shm
 *checkpoint*
-

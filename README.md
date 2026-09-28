@@ -19,9 +19,24 @@ python3 app/outreach_review_queue.py --help
 
 Load the Chrome helper from `chrome://extensions` using **Load unpacked**, then select `extension/contact-form-helper`.
 
-## Hosting status
+## Vercel deployment
 
-This commit preserves the working local source safely. It is not yet production-ready for Vercel: Vercel functions do not provide durable SQLite application storage. The hosted version should use a managed database, server-side authentication, and environment variables before importing any private queue data.
+The root project is a Vercel-compatible Next.js operator backed by Postgres. Configure these Vercel environment variables before deploying:
+
+- `DATABASE_URL`
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
+- `EXTENSION_API_TOKEN`
+
+Create the schema and import the existing private queue from your computer:
+
+```bash
+cp .env.example .env.local
+# Export DATABASE_URL in your terminal, then:
+npm run db:init
+npm run db:import -- /absolute/path/to/outreach_review_queue.sqlite
+```
+
+`app/outreach_review_queue.py` remains as the legacy local-only implementation. The hosted interface uses the Next.js files at the repository root.
 
 Never commit CSV exports, SQLite databases, credentials, or `.env` files.
-
