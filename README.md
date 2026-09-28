@@ -21,12 +21,11 @@ Load the Chrome helper from `chrome://extensions` using **Load unpacked**, then 
 
 ## Vercel deployment
 
-The root project is a Vercel-compatible Next.js operator backed by Postgres. Configure these Vercel environment variables before deploying:
+The root project is a Vercel-compatible Next.js operator backed by Postgres. Configure this Vercel environment variable before deploying:
 
 - `DATABASE_URL`
-- `ADMIN_USERNAME`
-- `ADMIN_PASSWORD`
-- `EXTENSION_API_TOKEN`
+
+The operator has no login screen. Treat its Vercel URL as private because anyone with the URL can access the queue.
 
 Create the schema and import the existing private queue from your computer:
 

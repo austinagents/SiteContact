@@ -16,17 +16,15 @@ const result = document.getElementById("result");
 const autoFill = document.getElementById("autoFill");
 const autoAdvance = document.getElementById("autoAdvance");
 const queueBaseUrl = document.getElementById("queueBaseUrl");
-const extensionApiToken = document.getElementById("extensionApiToken");
 
 async function load() {
-  const saved = await chrome.storage.local.get(["senderName", "contactEmail", "message", "autoFill", "autoAdvance", "queueBaseUrl", "extensionApiToken"]);
+  const saved = await chrome.storage.local.get(["senderName", "contactEmail", "message", "autoFill", "autoAdvance", "queueBaseUrl"]);
   senderName.value = saved.senderName || "";
   contactEmail.value = saved.contactEmail || DEFAULT_EMAIL;
   message.value = saved.message || DEFAULT_MESSAGE;
   autoFill.checked = Boolean(saved.autoFill);
   autoAdvance.checked = Boolean(saved.autoAdvance);
   queueBaseUrl.value = saved.queueBaseUrl || "http://127.0.0.1:8765";
-  extensionApiToken.value = saved.extensionApiToken || "";
 }
 
 async function settings() {
@@ -36,8 +34,7 @@ async function settings() {
     message: message.value.trim(),
     autoFill: autoFill.checked,
     autoAdvance: autoAdvance.checked,
-    queueBaseUrl: queueBaseUrl.value.trim().replace(/\/$/, ""),
-    extensionApiToken: extensionApiToken.value.trim()
+    queueBaseUrl: queueBaseUrl.value.trim().replace(/\/$/, "")
   };
   await chrome.storage.local.set(value);
   return value;
@@ -75,7 +72,7 @@ async function openNext() {
   try {
     const response = await fetch(`${saved.queueBaseUrl}/api/next`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Extension-Token": saved.extensionApiToken },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: tab.url || "" })
     });
     const value = await response.json();
@@ -89,5 +86,5 @@ async function openNext() {
 
 document.getElementById("fill").addEventListener("click", fill);
 document.getElementById("next").addEventListener("click", openNext);
-[senderName, contactEmail, message, autoFill, autoAdvance, queueBaseUrl, extensionApiToken].forEach(element => element.addEventListener("change", settings));
+[senderName, contactEmail, message, autoFill, autoAdvance, queueBaseUrl].forEach(element => element.addEventListener("change", settings));
 load();

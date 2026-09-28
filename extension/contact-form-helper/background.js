@@ -10,12 +10,12 @@ async function fillActiveTab() {
 async function openNextQueueRecord() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab?.id) return;
-  const settings = await chrome.storage.local.get(["queueBaseUrl", "extensionApiToken"]);
+  const settings = await chrome.storage.local.get(["queueBaseUrl"]);
   const baseUrl = (settings.queueBaseUrl || "http://127.0.0.1:8765").replace(/\/$/, "");
   try {
     const response = await fetch(`${baseUrl}/api/next`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Extension-Token": settings.extensionApiToken || "" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: tab.url || "" })
     });
     if (!response.ok) return;
@@ -35,12 +35,12 @@ chrome.runtime.onMessage.addListener((request, sender) => {
   if (request.type !== "contact-form-submitted" || !sender.tab?.id) return;
   const tabId = sender.tab.id;
   setTimeout(async () => {
-    const settings = await chrome.storage.local.get(["queueBaseUrl", "extensionApiToken"]);
+    const settings = await chrome.storage.local.get(["queueBaseUrl"]);
     const baseUrl = (settings.queueBaseUrl || "http://127.0.0.1:8765").replace(/\/$/, "");
     try {
       const response = await fetch(`${baseUrl}/api/advance`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "X-Extension-Token": settings.extensionApiToken || "" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: request.url })
       });
       if (!response.ok) return;

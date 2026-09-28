@@ -18,6 +18,6 @@ Enable **After I submit, open the next queue record** to mark the current queue 
 
 Press **Command+Shift+.** at any time to move to the next eligible pending queue record without changing the current record's status. Chrome shortcuts can be customized at `chrome://extensions/shortcuts`.
 
-For a hosted operator, open **Queue connection** in the popup and enter the Vercel URL and the same `EXTENSION_API_TOKEN` configured in Vercel. Localhost remains the default for local use.
+For a hosted operator, open **Queue connection** in the popup and enter the Vercel URL. Localhost remains the default for local use.
 
 Always review the populated fields before manually submitting.
